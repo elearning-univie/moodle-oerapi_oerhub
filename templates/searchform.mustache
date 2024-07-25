@@ -23,15 +23,8 @@
 }}
 <div class="search-container">
     <div class="search-bar">
-        <form action="{{actionurl}}" method="post" id="searchform">
-            <label for="search-term">Search:</label>
-            <input type="text" id="searchstring" name="searchstring" placeholder="Enter your search term">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
+        <label for="search-term">Search:</label>
+        <input type="text" id="searchstring" name="searchstring" placeholder="Enter your search term" value="{{searchstring}}">
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
-    <div class="search-results">
-    </div>
-</div>
-
-<div class="filter-container">
 </div>

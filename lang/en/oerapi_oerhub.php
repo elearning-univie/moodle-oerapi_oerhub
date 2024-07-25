@@ -23,3 +23,4 @@
 $string['pluginname'] = 'Oerapi Oerhub';
 $string['requesturlsetting'] = 'requesturlsetting';
 $string['requesturlsettingdesc'] = 'requesturlsettingdesc';
+$string['resourcesfound'] = 'Resources found';
