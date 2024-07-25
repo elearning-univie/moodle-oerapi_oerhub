@@ -16,6 +16,8 @@
 
 namespace oerapi_oerhub\api;
 
+use core_reportbuilder\local\helpers\aggregation;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/filelib.php');
@@ -29,9 +31,11 @@ require_once($CFG->libdir . '/filelib.php');
  */
 class general extends \mod_oercollection\api\general {
     private $baseurl;
+    private $oercollectionid;
 
-    public function __construct($baseurl) {
+    public function __construct($baseurl, $oercollectionid) {
         $this->baseurl = $baseurl;
+        $this->oercollectionid = $oercollectionid;
     }
 
     public function get_resource_html($oerresourceid) {
@@ -44,26 +48,85 @@ class general extends \mod_oercollection\api\general {
         return $this->create_resource_html($jsondata['data']);
     }
 
-    public function get_search_form() {
+    public function get_search_form($searchstring = null) {
         global $PAGE;
         $renderer = $PAGE->get_renderer('core');
-        return $renderer->render_from_template('oerapi_oerhub/searchform', ['actionurl' => $this->baseurl]);
+        return $renderer->render_from_template('oerapi_oerhub/searchform', ['actionurl' => $this->baseurl, 'searchstring' => $searchstring]);
     }
 
-    public function get_results($searchstring = null) {
+    public function get_results($searchstring = null, $filteroptions = null) {
         if (is_null($searchstring)) {
             return null;
         }
 
-        $response = $this->call_repo(json_encode(['query' => $searchstring]));
+        if ($filteroptions != '{}') {
+            $filteroptions = json_decode($filteroptions, true);
+            $searchstring = json_encode([
+                'query' => $searchstring,
+                'disciplines' => [
+                    ['id' => $filteroptions['disciplines']]
+                ],
+                'languages' => [
+                    ['id' => $filteroptions['languages']]
+                ],
+                'mediaTypes' => [$filteroptions['mediatype']],
+            ]);
+        } else {
+            $searchstring = json_encode(['query' => $searchstring]);
+        }
+
+        $response = $this->call_repo($searchstring);
 
         $jsondata = json_decode($response, true);
         $results = [];
 
         foreach($jsondata['data']['hits']['hits'] as $item) {
-            $results[] = $this->create_resource_html($item);
+            $results[] = [
+                'oerhtml' => $this->create_resource_html($item),
+                'oerhubid' => $item['_id'],
+                'link' => $item['_source']['oea_object_direct_link'],
+                'title' => $item['_source']['oea_title'],
+            ];
         }
-        return $results;
+
+        if (count($results) != 0) {
+            global $PAGE;
+            $renderer = $PAGE->get_renderer('core');
+
+            $templatecontext = [
+                'oersearchresultlist' => $results,
+                'oerid' => $this->oercollectionid,
+                'filterdata' => $this->create_filter_form_data($jsondata),
+                'foundcount' => $jsondata['data']['hits']['total']['value'],
+            ];
+
+            $resulthtml = $renderer->render_from_template('oerapi_oerhub/resultlist', $templatecontext);
+        } else {
+            return "nothing found";
+        }
+
+        return $resulthtml;
+    }
+
+    private function create_filter_form_data($jsondata) {
+        foreach($jsondata['disciplines'] as $discipline) {
+            $disciplines[] = ['value' => $discipline['id'], 'optionlabel' => $discipline['name_en']];
+        }
+        foreach($jsondata['languages'] as $language) {
+            $languages[] = ['value' => $language['id'], 'optionlabel' => $language['name_en']];
+        }
+        foreach($jsondata['mediaType'] as $mediatype) {
+            $mediatypes[] = ['value' => $mediatype, 'optionlabel' => $mediatype];
+        }
+        $filterdata = [
+            'actionurl' => $this->baseurl,
+            'filteroptions' => [
+                ['name' => 'disciplines', 'label' => 'Disciplines', 'options' => $disciplines],
+                ['name' => 'mediatype', 'label' => 'Media types', 'options' => $mediatypes],
+                ['name' => 'languages', 'label' => 'Languages', 'options' => $languages],
+            ],
+        ];
+        return $filterdata;
     }
 
     private function create_resource_html($jsondata) {
@@ -76,13 +139,8 @@ class general extends \mod_oercollection\api\general {
             'thumbnail' => $jsondata['_source']['oea_thumbnail_url'],
             'authors' => implode('; ', $jsondata['_source']['oea_authors']),
         ];
-        $result = [
-            'html' => $renderer->render_from_template('oerapi_oerhub/resource', $templatecontext),
-            'id' => $jsondata['_id'],
-            'directurl' => $jsondata['_source']['oea_object_direct_link'],
-            'title' => $jsondata['_source']['oea_title'],
-        ];
-        return $result;
+
+        return $renderer->render_from_template('oerapi_oerhub/resource', $templatecontext);
     }
 
     private function call_repo($postdata=null, $resourceid=null) {
