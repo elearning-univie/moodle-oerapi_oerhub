@@ -61,7 +61,7 @@ class general extends \mod_oercollection\api\general {
 
         if ($filteroptions != '{}') {
             $filteroptions = json_decode($filteroptions, true);
-            $searchstring = json_encode([
+            $decodevalues = [
                 'query' => $searchstring,
                 'disciplines' => [
                     ['id' => $filteroptions['disciplines']]
@@ -70,7 +70,14 @@ class general extends \mod_oercollection\api\general {
                     ['id' => $filteroptions['languages']]
                 ],
                 'mediaTypes' => [$filteroptions['mediatype']],
-            ]);
+            ];
+            if (isset($filteroptions['yearfrom'])) {
+                $decodevalues['startDate'] = [$filteroptions['yearfrom']];
+            }
+            if (isset($filteroptions['yearto'])) {
+                $decodevalues['endDate'] = [$filteroptions['yearto']];
+            }
+            $searchstring = json_encode($decodevalues);
         } else {
             $searchstring = json_encode(['query' => $searchstring]);
         }
@@ -137,7 +144,7 @@ class general extends \mod_oercollection\api\general {
             'title' => $jsondata['_source']['oea_title'],
             'abstract' => $jsondata['_source']['oea_abstract'],
             'thumbnail' => $jsondata['_source']['oea_thumbnail_url'],
-            'authors' => implode('; ', $jsondata['_source']['oea_authors']),
+            'authors' => implode('; ', $jsondata['_source']['oea_authors'] ?? []),
         ];
 
         return $renderer->render_from_template('oerapi_oerhub/resource', $templatecontext);
