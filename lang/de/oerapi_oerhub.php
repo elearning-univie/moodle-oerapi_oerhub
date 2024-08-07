@@ -20,6 +20,7 @@
  * @copyright     2024 University of Vienna
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'Oerapi Oerhub';
+$string['pluginname'] = 'OER-API OERhub';
 $string['requesturlsetting'] = 'requesturlsetting';
-$string['requesturlsettingdesc'] = 'requesturlsettingdesc';
+$string['requesturlsettingdesc'] = 'URL zum OERhub-Server';
+$string['resourcesfound'] = 'Ressourcen gefunden';
