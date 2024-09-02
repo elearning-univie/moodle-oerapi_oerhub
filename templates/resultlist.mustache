@@ -25,10 +25,10 @@
 
 <div id="region-main-box">
     <div class="row py-1">
-        <a href="#" onclick="$.mod_oersearch_checkall()">
+        <a href="#" onclick="$.mod_oercollection_setall(true)">
             {{#str}}checkall, mod_oercollection{{/str}}
         </a>
-        <a href="#" onclick="$.mod_oersearch_checknone()">
+        <a href="#" onclick="$.mod_oercollection_setall(false)">
             {{#str}}checknone, mod_oercollection{{/str}}
         </a>
     </div>
@@ -39,7 +39,7 @@
                 <div class="d-flex" style="border: 1px LightGrey solid;">
                     <!-- the checkbox -->
                     <div class="d-flex p-2 align-self-center" style="width:5%;">
-                        <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerentryid}}" onchange="$.mod_oersearch_selected()">
+                        <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerentryid}}">
                     </div>
                     <!-- the checkbox END -->
 

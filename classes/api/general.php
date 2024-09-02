@@ -145,6 +145,7 @@ class general extends \mod_oercollection\api\general {
             'abstract' => $jsondata['_source']['oea_abstract'],
             'thumbnail' => $jsondata['_source']['oea_thumbnail_url'],
             'authors' => implode('; ', $jsondata['_source']['oea_authors'] ?? []),
+            'oerresourcelink' => $jsondata['_source']['oea_object_direct_link'],
         ];
 
         return $renderer->render_from_template('oerapi_oerhub/resource', $templatecontext);
