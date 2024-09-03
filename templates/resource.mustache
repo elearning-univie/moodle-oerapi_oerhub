@@ -29,7 +29,9 @@
         <div class="p-1" style="width:20%"><img src="{{thumbnail}}" alt="W3Schools.com" width="104" height="142" style="float:left"></div>
         <div class="p-1 flex-grow-1">
             <p>{{abstract}}</p>
-            <p>{{authors}}</p>
+            <p>{{#str}} author, oerapi_oerhub {{/str}}{{authors}}</p>
+            <p>{{#str}} uploaddate, oerapi_oerhub {{/str}}{{uploaddate}}</p>
+            {{license}}
         </div>
     </div>
 </div>

@@ -145,6 +145,8 @@ class general extends \mod_oercollection\api\general {
             'abstract' => $jsondata['_source']['oea_abstract'],
             'thumbnail' => $jsondata['_source']['oea_thumbnail_url'],
             'authors' => implode('; ', $jsondata['_source']['oea_authors'] ?? []),
+            'uploaddate' => $jsondata['_source']['oea_classification_03'],
+            'license' => $jsondata['_source']['oea_classification_02'],
             'oerresourcelink' => $jsondata['_source']['oea_object_direct_link'],
         ];
 

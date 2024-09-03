@@ -24,3 +24,6 @@ $string['pluginname'] = 'OER-API OERhub';
 $string['requesturlsetting'] = 'requesturlsetting';
 $string['requesturlsettingdesc'] = 'The URL of the OERhub server.';
 $string['resourcesfound'] = 'Resources found';
+
+$string['author'] = 'Author: ';
+$string['uploaddate'] = 'Upload date: ';
