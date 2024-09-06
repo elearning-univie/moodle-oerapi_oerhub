@@ -26,12 +26,12 @@
         <a href="{{oerresourcelink}}" target="_blank"><b>{{title}}</b></a>
     </div>
     <div class="d-flex p-0 text-dark">
-        <div class="p-1" style="width:20%"><img src="{{thumbnail}}" alt="W3Schools.com" width="104" height="142" style="float:left"></div>
+        <div class="p-1"><img src="{{thumbnail}}" alt="W3Schools.com" width="104" height="142" style="float:left"></div>
         <div class="p-1 flex-grow-1">
             <p>{{abstract}}</p>
             <p>{{#str}} author, oerapi_oerhub {{/str}}{{authors}}</p>
             <p>{{#str}} uploaddate, oerapi_oerhub {{/str}}{{uploaddate}}</p>
-            <a href="{{{licenseurl}}}" target="_blank">{{license}}</a>
+            {{license}}
         </div>
     </div>
 </div>

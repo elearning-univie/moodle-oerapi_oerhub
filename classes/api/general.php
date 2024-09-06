@@ -54,12 +54,12 @@ class general extends \mod_oercollection\api\general {
         return $renderer->render_from_template('oerapi_oerhub/searchform', ['actionurl' => $this->baseurl, 'searchstring' => $searchstring]);
     }
 
-    public function get_results($searchstring = null, $filteroptions = null) {
+    public function get_results($searchstring = null, $filteroptions = null, $page = 0) {
         if (is_null($searchstring)) {
             return null;
         }
 
-        $decodedvalues = ['query' => $searchstring];
+        $decodedvalues = ['query' => $searchstring, 'size' => '20', 'page' => $page];
         $showfilter = null;
 
         if ($filteroptions != '{}') {
@@ -120,7 +120,7 @@ class general extends \mod_oercollection\api\general {
             return "nothing found";
         }
 
-        return $resulthtml;
+        return ['resulthtml' => $resulthtml, 'foundcount' =>$jsondata['data']['hits']['total']['value']];
     }
 
     private function create_filter_form_data($jsondata, $filteroptions) {

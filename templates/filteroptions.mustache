@@ -37,17 +37,23 @@
         </span>
     </a>
     <div class="collapse {{#open}}show{{/open}}" id="collapseOptions">
+        <div class="container">
         {{#filteroptions}}
-        <div class="label-select-container">
-            <label for="{{name}}">{{label}}</label>
-            <select class="filterdata" id="{{name}}" name="{{name}}">
-                <option value=""></option>
-                {{#options}}
-                <option value="{{value}}" {{#selected}}selected{{/selected}}>{{optionlabel}}</option>
-                {{/options}}
-            </select>
-        </div>
+            <div class="row align-items-left">
+                <div class="col-auto">
+                    <label for="{{name}}">{{label}}</label>
+                </div>
+                <div class="col">
+                    <select class="filterdata" id="{{name}}" name="{{name}}">
+                        <option value=""></option>
+                        {{#options}}
+                            <option value="{{value}}" {{#selected}}selected{{/selected}}>{{optionlabel}}</option>
+                        {{/options}}
+                    </select>
+                </div>
+            </div>
         {{/filteroptions}}
+        </div>
 
         <label for="releasefromcheckbox">Released from</label>
         <input type="checkbox" id="yearfromcheckbox" onclick="toggleDropdown('yearfromcheckbox', 'yearfrom')">
