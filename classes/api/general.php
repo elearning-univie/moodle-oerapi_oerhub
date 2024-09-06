@@ -59,29 +59,36 @@ class general extends \mod_oercollection\api\general {
             return null;
         }
 
+        $decodedvalues = ['query' => $searchstring];
+        $showfilter = null;
+
         if ($filteroptions != '{}') {
             $filteroptions = json_decode($filteroptions, true);
-            $decodevalues = [
-                'query' => $searchstring,
-                'disciplines' => [
-                    ['id' => $filteroptions['disciplines']]
-                ],
-                'languages' => [
-                    ['id' => $filteroptions['languages']]
-                ],
-                'mediaTypes' => [$filteroptions['mediatype']],
-            ];
-            if (isset($filteroptions['yearfrom'])) {
-                $decodevalues['startDate'] = [$filteroptions['yearfrom']];
+
+
+            if (!empty($filteroptions['disciplines'])) {
+                $decodedvalues['disciplines'] = ['id' => $filteroptions['disciplines']];
             }
-            if (isset($filteroptions['yearto'])) {
-                $decodevalues['endDate'] = [$filteroptions['yearto']];
+
+            if (!empty($filteroptions['mediatype'])) {
+                $decodedvalues['mediaTypes'] = [$filteroptions['mediatype']];
             }
-            $searchstring = json_encode($decodevalues);
-        } else {
-            $searchstring = json_encode(['query' => $searchstring]);
+
+            if (!empty($filteroptions['languages'])) {
+                $decodedvalues['languages'] = ['id' => $filteroptions['languages']];
+            }
+
+            if (!empty($filteroptions['yearfrom'])) {
+                $decodedvalues['startDate'] = $filteroptions['yearfrom'];
+            }
+
+            if (!empty($filteroptions['yearto'])) {
+                $decodedvalues['endDate'] = $filteroptions['yearto'];
+            }
+            $showfilter = true;
         }
 
+        $searchstring = json_encode($decodedvalues);
         $response = $this->call_repo($searchstring);
 
         $jsondata = json_decode($response, true);
@@ -103,8 +110,9 @@ class general extends \mod_oercollection\api\general {
             $templatecontext = [
                 'oersearchresultlist' => $results,
                 'oerid' => $this->oercollectionid,
-                'filterdata' => $this->create_filter_form_data($jsondata),
+                'filterdata' => $this->create_filter_form_data($jsondata, $decodedvalues),
                 'foundcount' => $jsondata['data']['hits']['total']['value'],
+                'open' => $showfilter,
             ];
 
             $resulthtml = $renderer->render_from_template('oerapi_oerhub/resultlist', $templatecontext);
@@ -115,25 +123,36 @@ class general extends \mod_oercollection\api\general {
         return $resulthtml;
     }
 
-    private function create_filter_form_data($jsondata) {
-        foreach($jsondata['disciplines'] as $discipline) {
-            $disciplines[] = ['value' => $discipline['id'], 'optionlabel' => $discipline['name_en']];
-        }
-        foreach($jsondata['languages'] as $language) {
-            $languages[] = ['value' => $language['id'], 'optionlabel' => $language['name_en']];
-        }
-        foreach($jsondata['mediaType'] as $mediatype) {
-            $mediatypes[] = ['value' => $mediatype, 'optionlabel' => $mediatype];
-        }
+    private function create_filter_form_data($jsondata, $filteroptions) {
         $filterdata = [
             'actionurl' => $this->baseurl,
             'filteroptions' => [
-                ['name' => 'disciplines', 'label' => 'Disciplines', 'options' => $disciplines],
-                ['name' => 'mediatype', 'label' => 'Media types', 'options' => $mediatypes],
-                ['name' => 'languages', 'label' => 'Languages', 'options' => $languages],
+                $this->create_filter_option('disciplines', 'Disciplines', $jsondata['disciplines'], $filteroptions['disciplines'] ?? null, 'id', 'name_en'),
+                $this->create_filter_option('mediatype', 'Media types', $jsondata['mediaType'], $filteroptions['mediaTypes'][0] ?? null),
+                $this->create_filter_option('languages', 'Languages', $jsondata['languages'], $filteroptions['languages'] ?? null, 'id', 'name_en')
             ],
         ];
+
         return $filterdata;
+    }
+
+    private function create_filter_option($name, $label, $data, $selectedOption = null, $valueKey = null, $labelKey = null) {
+        $options = array_map(function($item) use ($selectedOption, $valueKey, $labelKey) {
+            $value = $valueKey ? $item[$valueKey] : $item;
+            $optionlabel = $labelKey ? $item[$labelKey] : $item;
+
+            return [
+                'value' => $value,
+                'optionlabel' => $optionlabel,
+                'selected' => $selectedOption && ($selectedOption['id'] ?? $selectedOption) == $value
+            ];
+        }, $data);
+
+        return [
+            'name' => $name,
+            'label' => $label,
+            'options' => $options
+        ];
     }
 
     private function create_resource_html($jsondata) {

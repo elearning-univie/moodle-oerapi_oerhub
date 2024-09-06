@@ -21,10 +21,16 @@
     {
     }
 }}
-<div class="search-container">
-    <div class="search-bar">
-        <label for="search-term">Search:</label>
-        <input type="text" id="searchstring" name="searchstring" placeholder="Enter your search term" value="{{searchstring}}">
-        <button type="submit" class="btn btn-primary">Search</button>
+<div class="container search-bar mb-3">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <label for="search-term">Search:</label>
+        </div>
+        <div class="col">
+            <input type="text" id="searchstring" name="searchstring" class="form-control" placeholder="Enter your search term" value="{{searchstring}}">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
     </div>
 </div>
