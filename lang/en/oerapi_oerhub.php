@@ -27,3 +27,8 @@ $string['resourcesfound'] = 'Resources found';
 
 $string['author'] = 'Author: ';
 $string['uploaddate'] = 'Upload date: ';
+
+$string['filter'] = 'Filter';
+$string['nosearchresults'] = 'Nothing found';
+$string['releasedto'] = 'Released to';
+$string['releasedfrom'] = 'Released from';

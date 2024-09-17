@@ -117,7 +117,7 @@ class general extends \mod_oercollection\api\general {
 
             $resulthtml = $renderer->render_from_template('oerapi_oerhub/resultlist', $templatecontext);
         } else {
-            return "nothing found";
+            return get_string('nosearchresult', 'oerapi_oerhub');
         }
 
         return ['resulthtml' => $resulthtml, 'foundcount' =>$jsondata['data']['hits']['total']['value']];
