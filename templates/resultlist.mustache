@@ -39,7 +39,8 @@
                 <div class="d-flex" style="border: 1px LightGrey solid;">
                     <!-- the checkbox -->
                     <div class="d-flex p-2 align-self-center" style="width:5%;">
-                        <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerentryid}}">
+                        <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerhubid}}">
+                        <a id="resourcelink{{oerhubid}}" href="{{link}}" target="_blank"></a>
                     </div>
                     <!-- the checkbox END -->
 
@@ -58,7 +59,7 @@
             </div>
         </div>
     {{/oersearchresultlist}}
-    <<!--<div class="row py-1">
+    <div class="row py-1">
         <div class="d-flex p-0">
             <div class="p-1">
                 <label class="mr-1" for="editoptionselect">{{#str}}selectdotdot, mod_oercollection{{/str}}</label>
@@ -72,5 +73,5 @@
                     start, mod_oercollection {{/str}}</a>
             </div>
         </div>
-    </div>-->
+    </div>
 </div>
