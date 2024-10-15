@@ -25,10 +25,10 @@
 
 <div id="region-main-box">
     <div class="row py-1">
-        <a href="#" onclick="$.mod_oersearch_checkall()">
+        <a href="#" onclick="$.mod_oercollection_setall(true)">
             {{#str}}checkall, mod_oercollection{{/str}}
         </a>
-        <a href="#" onclick="$.mod_oersearch_checknone()">
+        <a href="#" onclick="$.mod_oercollection_setall(false)">
             {{#str}}checknone, mod_oercollection{{/str}}
         </a>
     </div>
@@ -39,7 +39,8 @@
                 <div class="d-flex" style="border: 1px LightGrey solid;">
                     <!-- the checkbox -->
                     <div class="d-flex p-2 align-self-center" style="width:5%;">
-                        <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerentryid}}" onchange="$.mod_oersearch_selected()">
+                        <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerhubid}}">
+                        <a id="resourcelink{{oerhubid}}" href="{{link}}" target="_blank"></a>
                     </div>
                     <!-- the checkbox END -->
 
@@ -49,7 +50,7 @@
 
                     <!-- the Buttons-->
                     <div class="p-1 flex-fill align-self-center" style="width:10%;">
-                        <a class="btn btn-secondary mb-1 px-1" href="{{oerresourcelink}}" target="_blank"  style="width:100%;"><small>{{#str}} openresource, mod_oercollection {{/str}}</small></a><br>
+                        <a class="btn btn-secondary mb-1 px-1" href="{{link}}" target="_blank"  style="width:100%;"><small>{{#str}} openresource, mod_oercollection {{/str}}</small></a><br>
                         <a class="btn btn-primary mt-1 px-1" href="#" onclick="$.mod_oercollection_add_to_collection({{oerid}}, '{{{oerhubid}}}', '{{{link}}}', '{{title}}')" style="width:100%;"><small>{{#str}} addtocollection, mod_oercollection {{/str}}</small></a>
                     </div>
                     <!-- the Buttons END-->
@@ -58,4 +59,19 @@
             </div>
         </div>
     {{/oersearchresultlist}}
+    <div class="row py-1">
+        <div class="d-flex p-0">
+            <div class="p-1">
+                <label class="mr-1" for="editoptionselect">{{#str}}selectdotdot, mod_oercollection{{/str}}</label>
+                <select class="custom-select" id="editoptionselect">
+                    <option value="1">{{#str}}openselected, mod_oercollection{{/str}}</option>
+                    <option value="5">{{#str}}addselected, mod_oercollection{{/str}}</option>
+                </select>
+            </div>
+            <div class="p-1 ml-1 flex-grow-1">
+                <a class="btn btn-primary" href="#" onclick="$.mod_oercollection_bulk_action({{oerid}})"> {{#str}}
+                    start, mod_oercollection {{/str}}</a>
+            </div>
+        </div>
+    </div>
 </div>

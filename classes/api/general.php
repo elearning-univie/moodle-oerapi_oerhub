@@ -54,27 +54,41 @@ class general extends \mod_oercollection\api\general {
         return $renderer->render_from_template('oerapi_oerhub/searchform', ['actionurl' => $this->baseurl, 'searchstring' => $searchstring]);
     }
 
-    public function get_results($searchstring = null, $filteroptions = null) {
+    public function get_results($searchstring = null, $filteroptions = null, $page = 0) {
         if (is_null($searchstring)) {
             return null;
         }
 
+        $decodedvalues = ['query' => $searchstring, 'size' => '20', 'page' => $page];
+        $showfilter = null;
+
         if ($filteroptions != '{}') {
             $filteroptions = json_decode($filteroptions, true);
-            $searchstring = json_encode([
-                'query' => $searchstring,
-                'disciplines' => [
-                    ['id' => $filteroptions['disciplines']]
-                ],
-                'languages' => [
-                    ['id' => $filteroptions['languages']]
-                ],
-                'mediaTypes' => [$filteroptions['mediatype']],
-            ]);
-        } else {
-            $searchstring = json_encode(['query' => $searchstring]);
+
+
+            if (!empty($filteroptions['disciplines'])) {
+                $decodedvalues['disciplines'] = ['id' => $filteroptions['disciplines']];
+            }
+
+            if (!empty($filteroptions['mediatype'])) {
+                $decodedvalues['mediaTypes'] = [$filteroptions['mediatype']];
+            }
+
+            if (!empty($filteroptions['languages'])) {
+                $decodedvalues['languages'] = ['id' => $filteroptions['languages']];
+            }
+
+            if (!empty($filteroptions['yearfrom'])) {
+                $decodedvalues['startDate'] = $filteroptions['yearfrom'];
+            }
+
+            if (!empty($filteroptions['yearto'])) {
+                $decodedvalues['endDate'] = $filteroptions['yearto'];
+            }
+            $showfilter = true;
         }
 
+        $searchstring = json_encode($decodedvalues);
         $response = $this->call_repo($searchstring);
 
         $jsondata = json_decode($response, true);
@@ -96,37 +110,49 @@ class general extends \mod_oercollection\api\general {
             $templatecontext = [
                 'oersearchresultlist' => $results,
                 'oerid' => $this->oercollectionid,
-                'filterdata' => $this->create_filter_form_data($jsondata),
+                'filterdata' => $this->create_filter_form_data($jsondata, $decodedvalues),
                 'foundcount' => $jsondata['data']['hits']['total']['value'],
+                'open' => $showfilter,
             ];
 
             $resulthtml = $renderer->render_from_template('oerapi_oerhub/resultlist', $templatecontext);
         } else {
-            return "nothing found";
+            return get_string('nosearchresult', 'oerapi_oerhub');
         }
 
-        return $resulthtml;
+        return ['resulthtml' => $resulthtml, 'foundcount' =>$jsondata['data']['hits']['total']['value']];
     }
 
-    private function create_filter_form_data($jsondata) {
-        foreach($jsondata['disciplines'] as $discipline) {
-            $disciplines[] = ['value' => $discipline['id'], 'optionlabel' => $discipline['name_en']];
-        }
-        foreach($jsondata['languages'] as $language) {
-            $languages[] = ['value' => $language['id'], 'optionlabel' => $language['name_en']];
-        }
-        foreach($jsondata['mediaType'] as $mediatype) {
-            $mediatypes[] = ['value' => $mediatype, 'optionlabel' => $mediatype];
-        }
+    private function create_filter_form_data($jsondata, $filteroptions) {
         $filterdata = [
             'actionurl' => $this->baseurl,
             'filteroptions' => [
-                ['name' => 'disciplines', 'label' => 'Disciplines', 'options' => $disciplines],
-                ['name' => 'mediatype', 'label' => 'Media types', 'options' => $mediatypes],
-                ['name' => 'languages', 'label' => 'Languages', 'options' => $languages],
+                $this->create_filter_option('disciplines', 'Disciplines', $jsondata['disciplines'], $filteroptions['disciplines'] ?? null, 'id', 'name_en'),
+                $this->create_filter_option('mediatype', 'Media types', $jsondata['mediaType'], $filteroptions['mediaTypes'][0] ?? null),
+                $this->create_filter_option('languages', 'Languages', $jsondata['languages'], $filteroptions['languages'] ?? null, 'id', 'name_en')
             ],
         ];
+
         return $filterdata;
+    }
+
+    private function create_filter_option($name, $label, $data, $selectedOption = null, $valueKey = null, $labelKey = null) {
+        $options = array_map(function($item) use ($selectedOption, $valueKey, $labelKey) {
+            $value = $valueKey ? $item[$valueKey] : $item;
+            $optionlabel = $labelKey ? $item[$labelKey] : $item;
+
+            return [
+                'value' => $value,
+                'optionlabel' => $optionlabel,
+                'selected' => $selectedOption && ($selectedOption['id'] ?? $selectedOption) == $value
+            ];
+        }, $data);
+
+        return [
+            'name' => $name,
+            'label' => $label,
+            'options' => $options
+        ];
     }
 
     private function create_resource_html($jsondata) {
@@ -137,7 +163,10 @@ class general extends \mod_oercollection\api\general {
             'title' => $jsondata['_source']['oea_title'],
             'abstract' => $jsondata['_source']['oea_abstract'],
             'thumbnail' => $jsondata['_source']['oea_thumbnail_url'],
-            'authors' => implode('; ', $jsondata['_source']['oea_authors']),
+            'authors' => implode('; ', $jsondata['_source']['oea_authors'] ?? []),
+            'uploaddate' => $jsondata['_source']['oea_classification_03'],
+            'license' => $jsondata['_source']['oea_classification_02'],
+            'oerresourcelink' => $jsondata['_source']['oea_object_direct_link'],
         ];
 
         return $renderer->render_from_template('oerapi_oerhub/resource', $templatecontext);
