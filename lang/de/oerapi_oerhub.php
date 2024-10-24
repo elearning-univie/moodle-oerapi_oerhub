@@ -24,3 +24,5 @@ $string['pluginname'] = 'OER-API OERhub';
 $string['requesturlsetting'] = 'requesturlsetting';
 $string['requesturlsettingdesc'] = 'URL zum OERhub-Server';
 $string['resourcesfound'] = 'Ressourcen gefunden';
+$string['privacy:metadata'] = 'Das OERHUB Subplugin speichert keine personenbezogenen Daten.';
+

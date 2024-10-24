@@ -32,3 +32,5 @@ $string['filter'] = 'Filter';
 $string['nosearchresults'] = 'Nothing found';
 $string['releasedto'] = 'Released to';
 $string['releasedfrom'] = 'Released from';
+
+$string['privacy:metadata'] = 'The OERHUB subplugin does not store any personal data.';

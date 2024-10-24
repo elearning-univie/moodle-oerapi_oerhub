@@ -28,3 +28,4 @@ $plugin->requires = 2023100900;
 $plugin->maturity  = MATURITY_ALPHA;
 $plugin->release   = 'v0.0.1';
 $plugin->component = 'oerapi_oerhub';
+$plugin->dependencies = ['mod_oercollection' => 2024041710];
