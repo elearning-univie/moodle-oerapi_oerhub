@@ -117,26 +117,29 @@ class general extends \mod_oercollection\api\general {
 
             $resulthtml = $renderer->render_from_template('oerapi_oerhub/resultlist', $templatecontext);
         } else {
-            return get_string('nosearchresult', 'oerapi_oerhub');
+            return [
+                'resulthtml' => get_string('nosearchresults', 'oerapi_oerhub'),
+                'foundcount' => 0,
+            ];
         }
 
-        return ['resulthtml' => $resulthtml, 'foundcount' =>$jsondata['data']['hits']['total']['value']];
+        return ['resulthtml' => $resulthtml, 'foundcount' => $jsondata['data']['hits']['total']['value']];
     }
 
     private function create_filter_form_data($jsondata, $filteroptions) {
         $filterdata = [
             'actionurl' => $this->baseurl,
             'filteroptions' => [
-                $this->create_filter_option('disciplines', 'Disciplines', $jsondata['disciplines'], $filteroptions['disciplines'] ?? null, 'id', 'name_en'),
-                $this->create_filter_option('mediatype', 'Media types', $jsondata['mediaType'], $filteroptions['mediaTypes'][0] ?? null),
-                $this->create_filter_option('languages', 'Languages', $jsondata['languages'], $filteroptions['languages'] ?? null, 'id', 'name_en')
+                $this->create_filter_option('disciplines', $jsondata['disciplines'], $filteroptions['disciplines'] ?? null, 'id', 'name_en'),
+                $this->create_filter_option('mediatype', $jsondata['mediaType'], $filteroptions['mediaTypes'][0] ?? null),
+                $this->create_filter_option('languages', $jsondata['languages'], $filteroptions['languages'] ?? null, 'id', 'name_en'),
             ],
         ];
 
         return $filterdata;
     }
 
-    private function create_filter_option($name, $label, $data, $selectedOption = null, $valueKey = null, $labelKey = null) {
+    private function create_filter_option($name, $data, $selectedOption = null, $valueKey = null, $labelKey = null) {
         $options = array_map(function($item) use ($selectedOption, $valueKey, $labelKey) {
             $value = $valueKey ? $item[$valueKey] : $item;
             $optionlabel = $labelKey ? $item[$labelKey] : $item;
@@ -150,7 +153,7 @@ class general extends \mod_oercollection\api\general {
 
         return [
             'name' => $name,
-            'label' => $label,
+            'label' => get_string($name, 'oerapi_oerhub'),
             'options' => $options
         ];
     }
