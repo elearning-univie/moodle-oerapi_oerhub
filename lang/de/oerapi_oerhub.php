@@ -20,9 +20,21 @@
  * @copyright     2024 University of Vienna
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+$string['author'] = 'Author: ';
+$string['filter'] = 'Filter';
+$string['filterresults'] = 'Ergebnisse filtern';
+$string['nosearchresults'] = 'Nichts gefunden';
 $string['pluginname'] = 'OER-API OERhub';
+$string['privacy:metadata'] = 'Das OERHUB Subplugin speichert keine personenbezogenen Daten.';
+$string['releasedfrom'] = 'Veröffentlicht bis';
+$string['releasedto'] = 'Veröffentlicht von';
 $string['requesturlsetting'] = 'requesturlsetting';
 $string['requesturlsettingdesc'] = 'URL zum OERhub-Server';
+$string['resetfilter'] = 'Filter zurücksetzen';
 $string['resourcesfound'] = 'Ressourcen gefunden';
-$string['privacy:metadata'] = 'Das OERHUB Subplugin speichert keine personenbezogenen Daten.';
+$string['searchplaceholder'] = 'Geben sie einen Suchbegriff ein';
+$string['uploaddate'] = 'Hochgeladen am: ';
 
+$string['disciplines'] = 'Disziplin';
+$string['mediatype'] = 'Material';
+$string['languages'] = 'Sprache';
