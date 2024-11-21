@@ -54,15 +54,15 @@ class general extends \mod_oercollection\api\general {
         return $renderer->render_from_template('oerapi_oerhub/searchform', ['actionurl' => $this->baseurl, 'searchstring' => $searchstring]);
     }
 
-    public function get_results($searchstring = null, $filteroptions = null, $page = 0) {
+    public function get_results($searchstring = null, $filteroptions = null, $page = 0, $size = 20) {
         if (is_null($searchstring)) {
             return null;
         }
 
-        $decodedvalues = ['query' => $searchstring, 'size' => '20', 'page' => $page];
+        $decodedvalues = ['query' => $searchstring, 'size' => $size, 'page' => $page];
         $showfilter = null;
 
-        if ($filteroptions != '{}') {
+        if ($filteroptions != '{}' && !is_null($filteroptions)) {
             $filteroptions = json_decode($filteroptions, true);
 
 
@@ -113,6 +113,7 @@ class general extends \mod_oercollection\api\general {
                 'filterdata' => $this->create_filter_form_data($jsondata, $decodedvalues),
                 'foundcount' => $jsondata['data']['hits']['total']['value'],
                 'open' => $showfilter,
+                'selected' . $size => true,
             ];
 
             $resulthtml = $renderer->render_from_template('oerapi_oerhub/resultlist', $templatecontext);
