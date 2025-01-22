@@ -22,6 +22,8 @@
  */
 $string['author'] = 'Author: ';
 $string['filter'] = 'Filter';
+$string['filtermediatypesetting'] = 'filtermediatypesetting';
+$string['filtermediatypesettingdesc'] = 'Filter for mediatypes (e.g.: mp4,pdf,video)';
 $string['filterresults'] = 'Filter results';
 $string['nosearchresults'] = 'Nothing found';
 $string['pluginname'] = 'OER-API OERhub';

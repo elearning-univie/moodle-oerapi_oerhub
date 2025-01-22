@@ -26,3 +26,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $settings->add(new admin_setting_configtext('oerapi_oerhub/requesturl', get_string('requesturlsetting', 'oerapi_oerhub'),
     get_string('requesturlsettingdesc', 'oerapi_oerhub'), '', PARAM_URL));
+
+$settings->add(new admin_setting_configtext('oerapi_oerhub/filtermediatype', get_string('filtermediatypesetting', 'oerapi_oerhub'),
+    get_string('filtermediatypesettingdesc', 'oerapi_oerhub'), '', PARAM_TEXT));

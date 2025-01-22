@@ -65,17 +65,16 @@ class general extends \mod_oercollection\api\general {
         if ($filteroptions != '{}' && !is_null($filteroptions)) {
             $filteroptions = json_decode($filteroptions, true);
 
-
             if (!empty($filteroptions['disciplines'])) {
-                $decodedvalues['disciplines'] = ['id' => $filteroptions['disciplines']];
+                $decodedvalues['disciplines'] = [['id' => $filteroptions['disciplines']]];
             }
 
-            if (!empty($filteroptions['mediatype'])) {
+            if (!empty($filteroptions['mediatype']) && $filteroptions['mediatype'] != '') {
                 $decodedvalues['mediaTypes'] = [$filteroptions['mediatype']];
             }
 
             if (!empty($filteroptions['languages'])) {
-                $decodedvalues['languages'] = ['id' => $filteroptions['languages']];
+                $decodedvalues['languages'] = [['id' => $filteroptions['languages']]];
             }
 
             if (!empty($filteroptions['yearfrom'])) {
@@ -86,6 +85,15 @@ class general extends \mod_oercollection\api\general {
                 $decodedvalues['endDate'] = $filteroptions['yearto'];
             }
             $showfilter = true;
+        }
+
+        if (!array_key_exists('mediaTypes', $decodedvalues)) {
+            $oerhubconfig = get_config('oerapi_oerhub');
+            if ($oerhubconfig->filtermediatype) {
+                $filtermediatype = explode(',', $oerhubconfig->filtermediatype);
+                $filtermediatype = ['', ...$filtermediatype];
+                $decodedvalues['mediaTypes'] = $filtermediatype;
+            }
         }
 
         $searchstring = json_encode($decodedvalues);
@@ -106,6 +114,7 @@ class general extends \mod_oercollection\api\general {
         if (count($results) != 0) {
             global $PAGE;
             $renderer = $PAGE->get_renderer('core');
+            $PAGE->requires->js_call_amd('oerapi_oerhub/filterutil', 'init');
 
             $templatecontext = [
                 'oersearchresultlist' => $results,
@@ -128,13 +137,18 @@ class general extends \mod_oercollection\api\general {
     }
 
     private function create_filter_form_data($jsondata, $filteroptions) {
+        $lang = current_language();
+        $namelang = ($lang !== 'de') ? 'name_en' : 'name_de';
+
         $filterdata = [
             'actionurl' => $this->baseurl,
             'filteroptions' => [
-                $this->create_filter_option('disciplines', $jsondata['disciplines'], $filteroptions['disciplines'] ?? null, 'id', 'name_en'),
+                $this->create_filter_option('disciplines', $jsondata['disciplines'], $filteroptions['disciplines'][0] ?? null, 'id', $namelang),
                 $this->create_filter_option('mediatype', $jsondata['mediaType'], $filteroptions['mediaTypes'][0] ?? null),
-                $this->create_filter_option('languages', $jsondata['languages'], $filteroptions['languages'] ?? null, 'id', 'name_en'),
+                $this->create_filter_option('languages', $jsondata['languages'], $filteroptions['languages'][0] ?? null, 'id', $namelang),
             ],
+            'yearfrom' => $filteroptions['startDate'] ?? null,
+            'yearto' => $filteroptions['endDate'] ?? null,
         ];
 
         return $filterdata;
