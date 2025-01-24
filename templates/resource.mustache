@@ -21,17 +21,34 @@
     {
     }
 }}
-<div class="d-flex flex-column p-0 text-dark">
-    <div class="p-1 flex-grow-1">
+<div class="d-flex flex-column py-2 mx-2 text-dark">
+    <div class="row m-1">
         <a href="{{oerresourcelink}}" target="_blank"><b>{{title}}</b></a>
     </div>
-    <div class="d-flex p-0 text-dark">
-        <div class="p-1"><img src="{{thumbnail}}" alt="W3Schools.com" width="104" height="142" style="float:left"></div>
-        <div class="p-1 flex-grow-1">
-            <p>{{abstract}}</p>
-            <p>{{#str}} author, oerapi_oerhub {{/str}}{{authors}}</p>
-            <p>{{#str}} uploaddate, oerapi_oerhub {{/str}}{{uploaddate}}</p>
-            {{license}}
+    <div class="row m-1">
+        <div class="col-auto">
+            <img src="{{thumbnail}}" alt="Thumbnail" width="104" height="142" style="float:left">
+        </div>
+        <div class="col">
+            <div class="row">
+                <p>{{abstract}}</p>
+            </div>
+            <div class="row">
+                <div class="col mr-auto">
+                    <div class ="row">
+                        {{#str}} author, oerapi_oerhub {{/str}}{{authors}}
+                    </div>
+                    <div class ="row">
+                        {{#str}} uploaddate, oerapi_oerhub {{/str}}{{uploaddate}}
+                    </div>
+                </div>
+                <div class="col">
+                    <a href="{{{licenseurl}}}" target="_blank">
+                        {{{licenseicons}}}<br/>
+                        {{license}}
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

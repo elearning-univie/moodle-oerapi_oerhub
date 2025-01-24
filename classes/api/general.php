@@ -173,20 +173,50 @@ class general extends \mod_oercollection\api\general {
         ];
     }
 
-    private function create_resource_html($jsondata) {
-        global $PAGE;
-        $renderer = $PAGE->get_renderer('core');
+    /**
+     * Renders resource HTML based on JSON data from an external OER source.
+     *
+     * @param array $jsondata The data structure containing OER details.
+     * @return string HTML ready to be displayed.
+     */
+    private function create_resource_html($jsondata): string {
+        global $PAGE, $OUTPUT;
 
+        $source = $jsondata['_source'];
+        $licenseicons = array_flip([
+            'BY', 'CC', 'NC', 'NC-EU',
+            'NC-JP', 'ND', 'PD', 'REMIX',
+            'SA', 'SAMPLING.PLUS',
+            'SAMPLING', 'SHARE', 'ZERO',
+        ]);
+        $sublicenses = explode('-', $source['oea_classification_02'] ?? '');
+
+        // Build license icon HTML.
+        $iconhtml = [];
+        foreach ($sublicenses as $sublicense) {
+            if (isset($licenseicons[$sublicense])) {
+                $iconhtml[] = $OUTPUT->pix_icon(
+                    strtolower($sublicense),
+                    '', // Optionally pass alt text here
+                    'oerapi_oerhub'
+                );
+            }
+        }
+
+        // Prepare context for the template, using ?? '' to avoid notices.
         $templatecontext = [
-            'title' => $jsondata['_source']['oea_title'],
-            'abstract' => $jsondata['_source']['oea_abstract'],
-            'thumbnail' => $jsondata['_source']['oea_thumbnail_url'],
-            'authors' => implode('; ', $jsondata['_source']['oea_authors'] ?? []),
-            'uploaddate' => $jsondata['_source']['oea_classification_03'],
-            'license' => $jsondata['_source']['oea_classification_02'],
-            'oerresourcelink' => $jsondata['_source']['oea_object_direct_link'],
+            'title'           => format_string($source['oea_title'] ?? ''),
+            'abstract'        => format_text($source['oea_abstract'] ?? '', FORMAT_HTML),
+            'thumbnail'       => $source['oea_thumbnail_url']   ?? '',
+            'authors'         => implode('; ', $source['oea_authors'] ?? []),
+            'uploaddate'      => $source['oea_classification_03'] ?? '',
+            'licenseicons'    => implode('', $iconhtml),
+            'license'         => $source['oea_classification_02'] ?? '',
+            'licenseurl'      => $source['rights']['description'] ?? '',
+            'oerresourcelink' => $source['oea_object_direct_link'] ?? '',
         ];
 
+        $renderer = $PAGE->get_renderer('core');
         return $renderer->render_from_template('oerapi_oerhub/resource', $templatecontext);
     }
 
