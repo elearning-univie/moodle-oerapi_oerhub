@@ -13,3 +13,9 @@
 .label-select-container {
     /*display: inline-block;*/
 }
+
+.resource-entry {
+    width: 100%;
+    border: 1px LightGrey solid;
+    border-radius: 5px;
+}
