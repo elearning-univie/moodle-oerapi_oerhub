@@ -22,21 +22,21 @@
  */
 $string['author'] = 'Author: ';
 $string['filter'] = 'Filter';
-$string['filtermediatypesetting'] = 'filtermediatypesetting';
-$string['filtermediatypesettingdesc'] = 'Filter for mediatypes (e.g.: mp4,pdf,video)';
+$string['filtermediatypesetting'] = 'Displayed media types';
+$string['filtermediatypesettingdesc'] = 'Displayed media types can be restricted by entering a comma-separated list of file extensions (e.g.: mp4,pdf). If the field is left empty, all available media types of the OERhub will be displayed in search results.';
 $string['filterresults'] = 'Filter results';
 $string['nosearchresults'] = 'Nothing found';
 $string['pluginname'] = 'OER-API OERhub';
-$string['privacy:metadata'] = 'The OERHUB subplugin does not store any personal data.';
-$string['releasedfrom'] = 'Released from';
-$string['releasedto'] = 'Released to';
-$string['requesturlsetting'] = 'requesturlsetting';
+$string['privacy:metadata'] = 'The OER-API OERhub subplugin does not store any personal data.';
+$string['releasedfrom'] = 'Published from';
+$string['releasedto'] = 'Published to';
+$string['requesturlsetting'] = 'OERhub server URL';
 $string['requesturlsettingdesc'] = 'The URL of the OERhub server.';
 $string['resetfilter'] = 'Reset filter';
 $string['resourcesfound'] = 'Resources found';
 $string['searchplaceholder'] = 'Enter your search term';
-$string['uploaddate'] = 'Upload date: ';
+$string['uploaddate'] = 'Published on:&nbsp;';
 
-$string['disciplines'] = 'Disciplines';
-$string['mediatype'] = 'Media types';
-$string['languages'] = 'Languages';
+$string['disciplines'] = 'Discipline';
+$string['mediatype'] = 'Media type';
+$string['languages'] = 'Language';

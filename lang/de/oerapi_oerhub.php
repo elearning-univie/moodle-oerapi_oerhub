@@ -20,22 +20,22 @@
  * @copyright     2024 University of Vienna
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['author'] = 'Author: ';
+$string['author'] = 'Autor/in:&nbsp;';
 $string['filter'] = 'Filter';
-$string['filtermediatypesetting'] = 'filtermediatypesetting';
-$string['filtermediatypesettingdesc'] = 'Filter für Medientypen (z.B.: mp4,pdf,video)';
+$string['filtermediatypesetting'] = 'Angezeigte Medientypen';
+$string['filtermediatypesettingdesc'] = 'Die angezeigten Medientypen können als kommagetrennte Liste mit Dateiendungen eingeschränkt werden (z.B.: mp4,pdf). Falls das Feld leer ist, werden bei Suchergebnissen alle verfügbaren Medientypen im OERhub angezeigt.';
 $string['filterresults'] = 'Ergebnisse filtern';
 $string['nosearchresults'] = 'Nichts gefunden';
 $string['pluginname'] = 'OER-API OERhub';
-$string['privacy:metadata'] = 'Das OERHUB Subplugin speichert keine personenbezogenen Daten.';
-$string['releasedfrom'] = 'Veröffentlicht bis';
-$string['releasedto'] = 'Veröffentlicht von';
-$string['requesturlsetting'] = 'requesturlsetting';
+$string['privacy:metadata'] = 'Das Subplugin \'OER-API OERhub\' speichert keine personenbezogenen Daten.';
+$string['releasedfrom'] = 'Veröffentlicht von';
+$string['releasedto'] = 'Veröffentlicht bis';
+$string['requesturlsetting'] = 'OERhub-Server-URL';
 $string['requesturlsettingdesc'] = 'URL zum OERhub-Server';
 $string['resetfilter'] = 'Filter zurücksetzen';
 $string['resourcesfound'] = 'Ressourcen gefunden';
-$string['searchplaceholder'] = 'Geben sie einen Suchbegriff ein';
-$string['uploaddate'] = 'Hochgeladen am: ';
+$string['searchplaceholder'] = 'Geben Sie einen Suchbegriff ein';
+$string['uploaddate'] = 'Veröffentlicht am:&nbsp;';
 
 $string['disciplines'] = 'Disziplin';
 $string['mediatype'] = 'Material';
