@@ -21,33 +21,29 @@
     {
     }
 }}
-<div class="d-flex flex-column py-2 mx-2 text-dark">
-    <div class="row m-1">
-        <a href="{{oerresourcelink}}" target="_blank"><b>{{title}}</b></a>
+<h5 class="card-title mb-2">
+    <a href="{{oerresourcelink}}" target="_blank">{{title}}</a>
+</h5>
+<div class="row">
+    <div class="col-md-3">
+        <img src="{{thumbnail}}" alt="Thumbnail" class="img-fluid rounded">
     </div>
-    <div class="row m-1">
-        <div class="col-auto">
-            <img src="{{thumbnail}}" alt="Thumbnail" width="104" height="142" style="float:left">
-        </div>
-        <div class="col">
-            <div class="row">
-                <p>{{abstract}}</p>
+    <div class="col-md-9">
+        <p class="card-text">{{abstract}}</p>
+        <div class="d-flex justify-content-between">
+            <div class="col p-0">
+                <p class="mb-0 small">
+                    <strong>{{#str}} author, oerapi_oerhub {{/str}}</strong> {{authors}}
+                </p>
+                <p class="mb-0 small">
+                    <strong>{{#str}} uploaddate, oerapi_oerhub {{/str}}</strong> {{uploaddate}}
+                </p>
             </div>
-            <div class="row">
-                <div class="col mr-auto">
-                    <div class ="row">
-                        {{#str}} author, oerapi_oerhub {{/str}}{{authors}}
-                    </div>
-                    <div class ="row">
-                        {{#str}} uploaddate, oerapi_oerhub {{/str}}{{uploaddate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <a href="{{{licenseurl}}}" target="_blank">
-                        {{{licenseicons}}}<br/>
-                        {{license}}
-                    </a>
-                </div>
+            <div class="col-auto p-0">
+                <a href="{{{licenseurl}}}" target="_blank" class="text-decoration-none">
+                    {{{licenseicons}}}<br>
+                    <small>{{license}}</small>
+                </a>
             </div>
         </div>
     </div>

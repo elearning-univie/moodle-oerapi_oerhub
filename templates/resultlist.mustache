@@ -33,36 +33,42 @@
 </div>
 
 {{#oersearchresultlist}}
-    <div class="row mx-0 my-3 resource-entry">
-        <!-- the checkbox -->
-        <div class="col-auto align-self-center">
-            <input class="mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerhubid}}">
-            <a id="resourcelink{{oerhubid}}" href="{{link}}" target="_blank"></a>
-            <input type="hidden" id="title{{oerhubid}}" value="{{title}}">
-        </div>
-        <!-- the checkbox END -->
+    <div class="card mb-3 resource-frame">
+        <div class="card-body">
+            <div class="row align-items-center flex-nowrap">
+                <!-- Checkbox Column -->
+                <div class="col-auto">
+                    <div class="form-check">
+                        <input class="form-check-input mod-oercollection-checkbox" type="checkbox" name="selectbox" value="{{oerhubid}}">
+                        <a id="resourcelink{{oerhubid}}" href="{{link}}" target="_blank"></a>
+                        <input type="hidden" id="title{{oerhubid}}" value="{{title}}">
+                    </div>
+                </div>
+                <!-- the checkbox END -->
 
-        <!-- HTML provided by the subplugin -->
-        <div class="col p-0">{{{oerhtml}}}</div>
-        <!-- HTML provided by the subplugin END -->
+                <!-- Main Content Column -->
+                <div class="col">
+                    {{{oerhtml}}}
+                </div>
 
-        <!-- the Buttons-->
-        <div class="col-3 align-self-center">
-            <a
-                    class="btn btn-secondary mb-1 px-1 w-100"
-                    href="{{link}}"
-                    target="_blank">
-                <small>{{#str}} openresource, mod_oercollection {{/str}}</small>
-            </a><br>
-            <a
-                    id="addtocollection"
-                    class="btn btn-primary mt-1 px-1 w-100"
-                    href="#"
-                    onclick="mod_oercollection_add_to_collection({{oerid}}, '{{{oerhubid}}}', '{{{link}}}', '{{title}}')">
-                <small>{{#str}} addtocollection, mod_oercollection {{/str}}</small>
-            </a>
+                <!-- the Buttons -->
+                <div class="col-auto">
+                    <a
+                            class="btn btn-secondary mb-1 px-1 w-100"
+                            href="{{link}}"
+                            target="_blank">
+                        <small>{{#str}} openresource, mod_oercollection {{/str}}</small>
+                    </a><br>
+                    <a
+                            id="addtocollection"
+                            class="btn btn-primary mt-1 px-1 w-100"
+                            href="#"
+                            onclick="mod_oercollection_add_to_collection({{oerid}}, '{{{oerhubid}}}', '{{{link}}}', '{{title}}')">
+                        <small>{{#str}} addtocollection, mod_oercollection {{/str}}</small>
+                    </a>
+                </div>
+            </div>
         </div>
-        <!-- the Buttons END-->
     </div>
 {{/oersearchresultlist}}
 <div class="row py-1">
