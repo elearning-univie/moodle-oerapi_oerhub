@@ -21,10 +21,14 @@
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['author'] = 'Autor/in:&nbsp;';
+$string['dateerror'] = 'Veröffentlicht von muss vor Veröffentlich bis sein!';
 $string['filter'] = 'Filter';
 $string['filtermediatypesetting'] = 'Angezeigte Medientypen';
 $string['filtermediatypesettingdesc'] = 'Die angezeigten Medientypen können als kommagetrennte Liste mit Dateiendungen eingeschränkt werden (z.B.: mp4,pdf). Falls das Feld leer ist, werden bei Suchergebnissen alle verfügbaren Medientypen im OERhub angezeigt.';
 $string['filterresults'] = 'Ergebnisse filtern';
+$string['mediaicontooltip'] = 'Medientyp ';
+$string['mediatypeiconsetting'] = 'Mediatyp Mapping';
+$string['mediatypeiconsettingdesc'] = 'Key/Value Paar im JSON Format, wobei Key der Medientyp im Oerhub ist und Value das Moodle icon. z.B "pdf":"f/pdf"';
 $string['nosearchresults'] = 'Nichts gefunden';
 $string['pluginname'] = 'OER-API OERhub';
 $string['privacy:metadata'] = 'Das Subplugin \'OER-API OERhub\' speichert keine personenbezogenen Daten.';
