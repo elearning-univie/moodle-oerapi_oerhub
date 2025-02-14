@@ -29,3 +29,6 @@ $settings->add(new admin_setting_configtext('oerapi_oerhub/requesturl', get_stri
 
 $settings->add(new admin_setting_configtext('oerapi_oerhub/filtermediatype', get_string('filtermediatypesetting', 'oerapi_oerhub'),
     get_string('filtermediatypesettingdesc', 'oerapi_oerhub'), '', PARAM_TEXT));
+
+$settings->add(new admin_setting_configtextarea('oerapi_oerhub/mediatypeicon', get_string('mediatypeiconsetting', 'oerapi_oerhub'),
+    get_string('mediatypeiconsettingdesc', 'oerapi_oerhub'), '', PARAM_RAW));

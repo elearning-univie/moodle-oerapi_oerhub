@@ -1,3 +1,5 @@
+import {getString} from 'core/str';
+
 const readFilter = () => {
     const selectedValues = Array.from(document.querySelectorAll('select.filterdata'))
         .reduce((values, select) => {
@@ -13,7 +15,35 @@ const readFilter = () => {
             return values;
         }, {});
 
+    // If both year values are present, perform date validation.
+    if (selectedValues.yearfrom && selectedValues.yearto) {
+        if (selectedValues.yearfrom > selectedValues.yearto) {
+            const errorDiv = document.getElementById('yeartofilter');
+            if (errorDiv) {
+                if (!errorDiv.querySelector('.date-error')) {
+                    const errorMsg = document.createElement('p');
+                    errorMsg.classList.add('date-error');
+                    getString('dateerror', 'oerapi_oerhub').then((infomessage) => {
+                        errorMsg.textContent = infomessage;
+                        errorDiv.appendChild(errorMsg);
+                    });
+                }
+            }
+            return false;
+        }
+    }
+
+    // If validation passes, clear any existing error message.
+    const errorDiv = document.getElementById('yeartofilter');
+    if (errorDiv) {
+        const existingError = errorDiv.querySelector('.date-error');
+        if (existingError) {
+            existingError.remove();
+        }
+    }
+
     document.getElementById('filterdata').value = JSON.stringify(selectedValues);
+    return true;
 };
 
 const toggleDropdown = (checkboxId, dropdownId) => {
@@ -33,11 +63,16 @@ export const init = () => {
         }
     };
 
-    attachEvent('submitfilter', 'click', readFilter);
+    attachEvent('submitfilter', 'click', function(e) {
+        if (!readFilter()) {
+            e.preventDefault();
+        }
+    });
 
     attachEvent('perpage', 'change', function () {
-        readFilter();
-        this.form.submit();
+        if (readFilter()) {
+            this.form.submit();
+        }
     });
 
     attachEvent('yearfromcheckbox', 'click', () => toggleDropdown('yearfromcheckbox', 'yearfrom'));

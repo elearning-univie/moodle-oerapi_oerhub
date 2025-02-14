@@ -19,3 +19,16 @@
     border: 1px LightGrey solid;
     border-radius: 5px;
 }
+
+.date-error {
+    color: red;
+    font-size: 0.875em;
+}
+
+.path-mod-oercollection .big-icon,
+.activity-item .big-icon {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+}

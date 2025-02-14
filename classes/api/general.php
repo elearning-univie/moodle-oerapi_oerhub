@@ -32,10 +32,13 @@ require_once($CFG->libdir . '/filelib.php');
 class general extends \mod_oercollection\api\general {
     private $baseurl;
     private $oercollectionid;
+    private $mediaiconmapping;
 
     public function __construct($baseurl, $oercollectionid) {
         $this->baseurl = $baseurl;
         $this->oercollectionid = $oercollectionid;
+        $oerhubconfig = get_config('oerapi_oerhub');
+        $this->mediaiconmapping = json_decode($oerhubconfig->mediatypeicon, true);
     }
 
     public function get_resource_html($oerresourceid) {
@@ -203,6 +206,18 @@ class general extends \mod_oercollection\api\general {
             }
         }
 
+        $mediatype = $source['oea_classification_05'] ?? null;
+        $mediaicon = false;
+
+        if ($mediatype && !is_null($this->mediaiconmapping) && isset($this->mediaiconmapping[$mediatype])) {
+            $mediaicon = $OUTPUT->pix_icon(
+                $this->mediaiconmapping[$mediatype],
+                get_string('mediaicontooltip', 'oerapi_oerhub') . $mediatype,
+                'core',
+                ['class' => 'big-icon'],
+            );
+        }
+
         // Prepare context for the template, using ?? '' to avoid notices.
         $templatecontext = [
             'title'           => format_string($source['oea_title'] ?? ''),
@@ -214,6 +229,7 @@ class general extends \mod_oercollection\api\general {
             'license'         => $source['oea_classification_02'] ?? '',
             'licenseurl'      => $source['rights']['description'] ?? '',
             'oerresourcelink' => $source['oea_object_direct_link'] ?? '',
+            'mediaicon'       => $mediaicon,
         ];
 
         $renderer = $PAGE->get_renderer('core');
