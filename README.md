@@ -15,24 +15,24 @@ With the subplugin "OER-API - OERhub" teachers are able to search for available 
 
 Usage
 -----------
-Teachers want to search for published Open Educational Resources (OER) via [OERhub](https://oerhub.at) to use them in their own lecture. The subplugin "OER-API - OERhub" executes this search requests at the OERhub and provides results which can be filtered by discipline, media type, language and published from/ to date.
+Teachers want to search for published Open Educational Resources (OER) via [OERhub](https://oerhub.at) to use them in their own lecture. This subplugin executes the search requests at the OERhub and provides results which can be filtered by discipline, media type, language and published from/ to date.
 
 Admins can define which media types are included in the results and how they should be displayed.
 
 Requirements
 -----------
 The plugin is available for Moodle 4.4+.
-* The module "OER Collection" (https://github.com/elearning-univie/moodle-mod_oercollection) must be installed to run this plugin.
+
+* The module "OER Collection" (https://github.com/elearning-univie/moodle-mod_oercollection) must be installed to run this plugin.
 * The admin setting *requesturl* has to be set to "https://oerhub.at/search/", the URL of the OERhub server.
 * Via the optional admin setting *filtermediatype* displayed media types can be restricted by entering a comma-separated list of file extensions (e.g.: mp4,pdf). Details can be found at the admin settings description.
-* Via the optional admin setting *mediatypeicon* icons for every displayed media type can be defined as a key/value pair in JSON style, where key is the mediatype in oerhub and value is the moodle icon. e.g. "pdf":"f/pdf". If the field is left empty, OER will be displayed without an icon.(Setting is under development and further details will be published soon.)
+* Via the optional admin setting *mediatypeicon* icons for every displayed media type can be defined as a key/value pair in JSON style, where key is the mediatype in oerhub and value is the moodle icon. e.g. {"pdf":"f/pdf"}. If the field is left empty, OER will be displayed without an icon.(Setting is under development and further details will be published soon.)
 
 Installation
 -----------
-* Copy the code directly to the mod/offlinequiz directory.
+* Copy the code directly to the mod/oercollection directory.
 * Log into Moodle as administrator.
-* Open the administration area (http://your-moodle-site/admin) to start the installation
-  automatically.
+* Open the administration area (http://your-moodle-site/admin) to start the installation automatically.
 
 Privacy API
 -----------
@@ -41,11 +41,6 @@ The plugin fully implements the Moodle Privacy API.
 Documentation
 -----------
 You can find further information to the plugin "OER Collection" on the [Wiki of the University of Vienna](https://wiki.univie.ac.at/x/to2WHg).
-
-Third-party Libraries
------------
-This plugin uses the following third-party libraries:
-* JavaScript HTML renderer from [html2canvas](https://github.com/niklasvh/html2canvas)
 
 Bug Reports / Support
 -----------
