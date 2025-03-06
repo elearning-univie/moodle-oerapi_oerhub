@@ -26,7 +26,7 @@ The plugin is available for Moodle 4.4+.
 * The module "OER Collection" (https://github.com/elearning-univie/moodle-mod_oercollection) must be installed to run this plugin.
 * The admin setting *requesturl* has to be set to "https://oerhub.at/search/", the URL of the OERhub server.
 * Via the optional admin setting *filtermediatype* displayed media types can be restricted by entering a comma-separated list of file extensions (e.g.: mp4,pdf). Details can be found at the admin settings description.
-* Via the optional admin setting *mediatypeicon* icons for every displayed media type can be defined as a key/value pair in JSON style, where key is the mediatype in oerhub and value is the moodle icon. e.g. { "pdf":"f/pdf" }. If the field is left empty, OER will be displayed without an icon.(Setting is under development and further details will be published soon.)
+* Via the optional admin setting *mediatypeicon* icons for every displayed media type can be defined as a key/value pair in JSON style, where key is the mediatype in OERhub and value is the moodle icon. e.g. { "pdf":"f/pdf" }. If the field is left empty, OER will be displayed without an icon.(Setting is under development and further details will be published soon.)
 
 Installation
 -----------
