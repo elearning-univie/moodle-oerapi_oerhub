@@ -5,7 +5,7 @@ v4.5-r1
 -----------
 * [FEATURE] Implement message for bulk actions, if no resources are selected
 * [FEATURE] Implement check to the published from/ published to - filter for results
-* [FEATURE] Add readme to the plugin
+* [FEATURE] Add readme and changelog to the plugin repository
 
 v4.5-r0
 -----------
