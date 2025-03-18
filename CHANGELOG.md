@@ -1,7 +1,7 @@
 CHANGELOG
 ===================
 
-v4.5-r2 (2025-03-17)
+v4.5-r2 (2025-03-07)
 -----------
 * [FEATURE] Implement feature to set the icon for media types
 * [FEATURE] Implement message for bulk actions, if no resources are selected
