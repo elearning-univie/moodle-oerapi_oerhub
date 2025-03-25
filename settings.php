@@ -24,8 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+$defaultrequesturl = 'https://oerhub.at/search/';
 $settings->add(new admin_setting_configtext('oerapi_oerhub/requesturl', get_string('requesturlsetting', 'oerapi_oerhub'),
-    get_string('requesturlsettingdesc', 'oerapi_oerhub'), '', PARAM_URL));
+    get_string('requesturlsettingdesc', 'oerapi_oerhub'), $defaultrequesturl, PARAM_URL));
 
 $settings->add(new admin_setting_configtext('oerapi_oerhub/filtermediatype', get_string('filtermediatypesetting', 'oerapi_oerhub'),
     get_string('filtermediatypesettingdesc', 'oerapi_oerhub'), '', PARAM_TEXT));
