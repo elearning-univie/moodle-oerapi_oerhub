@@ -30,7 +30,7 @@ The plugin is available for Moodle 4.4+.
 
 Installation
 -----------
-* Copy the code directly to the mod/oercollection/resources directory. If this directory doesn't exist, you have to create it.
+* Copy the code directly to the mod/oercollection/resources/oerhub directory. If this directory doesn't exist, you have to create it.
 * Log into Moodle as administrator.
 * Open the administration area (http://your-moodle-site/admin) to start the installation automatically.
 
