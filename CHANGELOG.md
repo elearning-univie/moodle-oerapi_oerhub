@@ -1,6 +1,11 @@
 CHANGELOG
 ===================
 
+v4.5-r3 (2025-04-30)
+-----------
+* [FIX] Correction of details on installation (readme.md)
+* [FEATURE] Add default value for admin setting 'requesturl'
+
 v4.5-r2 (2025-03-07)
 -----------
 * [FEATURE] Implement feature to set the icon for media types
