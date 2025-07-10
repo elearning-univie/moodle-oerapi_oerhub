@@ -42,5 +42,5 @@ $string['searchplaceholder'] = 'Geben Sie einen Suchbegriff ein';
 $string['uploaddate'] = 'Veröffentlicht am:&nbsp;';
 
 $string['disciplines'] = 'Disziplin';
-$string['mediatype'] = 'Material';
+$string['mediatype'] = 'Medientyp';
 $string['languages'] = 'Sprache';
