@@ -1,6 +1,11 @@
 CHANGELOG
 ===================
 
+v5.0-r1 (2025-08-08)
+-----------
+* Moodle 5.0 compatible version
+* [FIX] Fixed incorrect langstring
+
 v4.5-r3 (2025-04-30)
 -----------
 * [FIX] Correction of details on installation (readme.md)
