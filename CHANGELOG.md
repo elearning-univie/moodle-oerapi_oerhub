@@ -1,6 +1,10 @@
 CHANGELOG
 ===================
 
+v5.0-r2 (2026-01-08)
+-----------
+* [FIX] Fixed filter and options dropdown function
+
 v5.0-r1 (2025-08-08)
 -----------
 * Moodle 5.0 compatible version
