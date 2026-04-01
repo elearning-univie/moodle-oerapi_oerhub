@@ -3,7 +3,7 @@ OER-API - OERhub
 
 This file is part of the oerapi_oerhub plugin for Moodle - <http://moodle.org/>
 
-*Author:* Angela Baier, Adrian Czermak
+*Author:* Angela Baier, Adrian Czermak, Karri Pajarinen
 
 *Copyright:* 2024 [University of Vienna](https://www.univie.ac.at/)
 
@@ -11,11 +11,11 @@ This file is part of the oerapi_oerhub plugin for Moodle - <http://moodle.org/>
 
 Description
 -----------
-With the subplugin "OER-API - OERhub" teachers are able to search for available Open Educational Resources (OER) from the [OERhub](https://oerhub.at) via the resource "OER Collection" (https://github.com/elearning-univie/moodle-mod_oercollection).
+With the subplugin "OER-API - OERhub" teachers are able to search for available Open Educational Resources (OER) from the external repository [OER-Directory](https://portal.oerhub.at/en/) (part of the Austrian [OERhub](https://www.oerhub.at/en/)) via the resource "OER Collection" (https://github.com/elearning-univie/moodle-mod_oercollection).
 
 Usage
 -----------
-Teachers want to search for published Open Educational Resources (OER) via [OERhub](https://oerhub.at) to use them in their own lecture. This subplugin executes the search requests at the OERhub and provides results which can be filtered by discipline, media type, language and published from/ to date.
+Teachers want to search for published Open Educational Resources (OER) via [OER-Directory](https://portal.oerhub.at/en/) to use them in their own lecture. This subplugin executes the search requests at the OER-Directory and provides results which can be filtered by discipline, media type, language and published from/ to date.
 
 Admins can define which media types are included in the results and how they should be displayed.
 
@@ -24,9 +24,9 @@ Requirements
 The plugin is available for Moodle 4.4+.
 
 * The module "OER Collection" (https://github.com/elearning-univie/moodle-mod_oercollection) must be installed to run this plugin.
-* The admin setting *requesturl* has to be set to "https://oerhub.at/search/", the URL of the OERhub server.
+* The admin setting *requesturl* has to be set to "https://portal.oerhub.at/search/", the URL of the server of the [OER-Directory](https://portal.oerhub.at/en/).
 * Via the optional admin setting *filtermediatype* displayed media types can be restricted by entering a comma-separated list of file extensions (e.g.: mp4,pdf). Details can be found at the admin settings description.
-* Via the optional admin setting *mediatypeicon* icons for every displayed media type can be defined as a key/value pair in JSON style, where key is the mediatype in OERhub and value is the moodle icon. e.g. { "pdf":"f/pdf" }. If the field is left empty, OER will be displayed without an icon.(Setting is under development and further details will be published soon.)
+* Via the optional admin setting *mediatypeicon* icons for every displayed media type can be defined as a key/value pair in JSON style, where key is the mediatype in OERhub and value is the moodle icon. e.g. { "pdf":"f/pdf" }. If the field is left empty, OER will be displayed without an icon.(Setting is under development)
 
 Installation
 -----------

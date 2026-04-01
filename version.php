@@ -24,8 +24,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'oerapi_oerhub';
-$plugin->version = 2025080801;
-$plugin->release   = 'v5.0-r2';
+$plugin->version = 2025080802;
+$plugin->release   = 'v5.0-r3';
 $plugin->requires = 2024042200;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->dependencies = ['mod_oercollection' => 2025080800];
