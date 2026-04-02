@@ -17,14 +17,14 @@
 /**
  * Admin settings of the wordcloud plugin
  *
- * @package    mod_wordcloud
+ * @package    oerapi_oerhub
  * @copyright  2020 University of Vienna
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$defaultrequesturl = 'https://oerhub.at/search/';
+$defaultrequesturl = 'https://portal.oerhub.at/search/';
 $settings->add(new admin_setting_configtext('oerapi_oerhub/requesturl', get_string('requesturlsetting', 'oerapi_oerhub'),
     get_string('requesturlsettingdesc', 'oerapi_oerhub'), $defaultrequesturl, PARAM_URL));
 

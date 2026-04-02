@@ -1,6 +1,10 @@
 CHANGELOG
 ===================
 
+v5.0-r3 (2026-04-01)
+-----------
+* [FEATURE] Minor update related to the relaunch of OERhub
+
 v5.0-r2 (2026-01-08)
 -----------
 * [FIX] Fixed filter and options dropdown function
